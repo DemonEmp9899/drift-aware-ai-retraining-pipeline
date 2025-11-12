@@ -1,0 +1,123 @@
+# ============================================
+# 🚫 PYTHON
+# ============================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+.venv.bak/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+junit.xml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# ============================================
+# 🧰 PROJECT-SPECIFIC
+# ============================================
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# Local data and logs
+logs/
+log/
+*.log
+*.out
+*.tmp
+*.bak
+
+# Supabase / credentials
+supabase/.temp/
+supabase/.cache/
+supabase/config.json
+.supabase/
+
+# SQLite or other temp databases
+*.db
+*.sqlite3
+
+# Simulation or generated data
+data/
+outputs/
+artifacts/
+results/
+cache/
+*.csv
+*.jsonl
+
+# Model weights or checkpoints
+checkpoints/
+models/
+*.h5
+*.pt
+*.pth
+*.onnx
+*.ckpt
+
+# ============================================
+# 🧠 IDEs & EDITORS
+# ============================================
+
+# VS Code
+.vscode/
+.history/
+*.code-workspace
+
+# PyCharm
+.idea/
+
+# JetBrains
+*.iml
+
+# ============================================
+# 🧪 MISC
+# ============================================
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.swp
+*.swo
+~$*
