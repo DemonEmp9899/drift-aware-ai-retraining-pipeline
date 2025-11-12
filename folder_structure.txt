@@ -1,0 +1,19 @@
+Drift aware AI retraining pipeline/
+│
+├── scripts/
+│   ├── simulate.py           # Runs simulated interactions
+│   ├── run_pipeline.py       # Main drift detection & retraining pipeline
+│
+├── src/
+│   ├── data_logger.py        # Logs interactions and embeddings
+│   ├── drift_monitor.py      # Detects embedding, behavior, accuracy drift
+│   ├── triggers.py           # Automated retraining / prompt update actions
+│   ├── metrics.py            # Prometheus exporter for Grafana visualization
+│
+├── dashboard/
+│   └── grafana_dashboard.json  # Pre-built Grafana dashboard
+│
+├── setup_database.sql        # Supabase schema setup
+├── .gitignore
+├── requirements.txt
+└── README.md
