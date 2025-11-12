@@ -1,0 +1,37 @@
+# ===========================
+# Drift-Aware AI Retraining Pipeline
+# ===========================
+# Core Python libraries
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.5.2
+python-dotenv==1.0.1
+
+# Supabase (PostgreSQL client)
+supabase==2.5.0
+postgrest==0.15.0
+gotrue==2.4.2
+realtime==2.1.1
+storage3==0.7.5
+
+# Metrics and Monitoring
+prometheus-client==0.21.0
+requests==2.32.3
+
+# Visualization and Logging
+matplotlib==3.9.2
+seaborn==0.13.2
+loguru==0.7.2
+
+# Optional — if using OpenRouter / OpenAI API calls
+openai==1.52.2
+
+# System Utilities
+tqdm==4.66.5
+colorama==0.4.6
+
+# Date and Time Handling
+python-dateutil==2.9.0.post0
+
+# JSON and Data Parsing
+ujson==5.10.0
