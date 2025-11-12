@@ -36,16 +36,188 @@ The main goal is to:
 
 ---
 
-## 🧠 Architecture Overview
+======================================================================
+                 🧠 HOW TO RUN: DRIFT-AWARE AI RETRAINING PIPELINE
+======================================================================
 
-```mermaid
-flowchart TD
-    A[User Interaction / Simulation] --> B[Data Logger]
-    B --> C[Supabase Database]
-    C --> D[Drift Monitor]
-    D -->|Drift Detected| E[Trigger Actions]
-    D -->|No Drift| F[Healthy State]
-    E --> G[Retraining / Reindexing]
-    G --> C
-    D --> H[Prometheus Metrics Exporter]
-    H --> I[Grafana Dashboard]
+This guide explains how to set up, configure, and run the project successfully.
+
+----------------------------------------------------------------------
+🔧 STEP 1: INSTALL DEPENDENCIES
+----------------------------------------------------------------------
+
+1. Make sure you have Python 3.10 or higher installed.
+
+2. Open your terminal inside the project folder:
+   M:\Drift aware AI retraining pipeline
+
+3. Install all dependencies using:
+   > pip install -r requirements.txt
+
+----------------------------------------------------------------------
+🧾 STEP 2: CREATE .ENV FILE
+----------------------------------------------------------------------
+
+1. In your project root directory, create a new file named:
+   > .env
+
+2. Open the file and add the following environment variables:
+
+   # Supabase
+   SUPABASE_URL=your_supabase_url
+   SUPABASE_KEY=your_supabase_anon_key
+
+   # OpenRouter (for AI APIs)
+   OPENROUTER_API_KEY=your_openrouter_key
+   # Configuration
+   EMBEDDING_MODEL=openai/text-embedding-ada-002
+   CHAT_MODEL=openai/gpt-3.5-turbo
+
+   # Drift thresholds
+   EMBEDDING_DRIFT_THRESHOLD=0.15
+   REFUSAL_RATE_THRESHOLD=0.05
+   TOXICITY_RATE_THRESHOLD=0.02
+   ACCURACY_DROP_THRESHOLD=0.05
+
+   # Monitoring
+   PROMETHEUS_PORT=8000
+   
+
+💡 Tip:
+   - Get SUPABASE_URL and SUPABASE_KEY from your Supabase project dashboard.
+   - OPENROUTER_API_KEY is only needed if you’re using API-based embedding generation.
+
+----------------------------------------------------------------------
+🧱 STEP 3: SET UP THE DATABASE
+----------------------------------------------------------------------
+
+1. Go to your Supabase project.
+2. Open the SQL Editor.
+3. Copy the contents of `setup_database.sql` from your project folder.
+4. Paste it into the SQL editor and run it.
+
+✅ This creates the required tables:
+   - embeddings_log
+   - interaction_log
+   - drift_events
+   - model_versions
+
+----------------------------------------------------------------------
+🧪 STEP 4: GENERATE TEST DATA (OPTIONAL)
+----------------------------------------------------------------------
+
+You can simulate user interactions and drift for testing.
+
+To run full simulation:
+   > python scripts/simulate.py
+
+To run a quick test simulation (less data, faster):
+   > python scripts/simulate.py --quick
+
+This will create mock interactions, drift events, and embedding logs
+in your Supabase database automatically.
+
+----------------------------------------------------------------------
+⚙️ STEP 5: RUN THE DRIFT PIPELINE
+----------------------------------------------------------------------
+
+To run the full drift detection and retraining pipeline:
+   > python scripts/run_pipeline.py
+
+✅ This performs:
+   - Embedding Drift Detection
+   - Behavior Drift Detection (toxicity/refusal)
+   - Accuracy Monitoring
+   - Automatic response actions (e.g., retrain, reindex, update prompt)
+
+If drift is detected, the system will log it in Supabase
+and simulate corrective actions (e.g., reindexing, fine-tuning, etc.).
+
+----------------------------------------------------------------------
+📊 STEP 6: RUN METRICS SERVER (FOR GRAFANA)
+----------------------------------------------------------------------
+
+Start the Prometheus metrics server:
+   > python src/metrics.py
+
+This will start a local server at:
+   👉 http://localhost:8000/metrics
+
+Prometheus can scrape metrics from this endpoint, and Grafana
+can visualize them in real-time.
+
+----------------------------------------------------------------------
+📈 STEP 7: VISUALIZE WITH GRAFANA
+----------------------------------------------------------------------
+
+1. Start Grafana and Prometheus on your system.
+2. Add Prometheus as a data source (URL: http://localhost:9090)
+3. Import the dashboard file from:
+   > dashboard/grafana_dashboard.json
+
+✅ You’ll now see live metrics such as:
+   - Drift Scores
+   - Refusal/Toxicity Rates
+   - Accuracy Trends
+   - Retraining Events
+
+----------------------------------------------------------------------
+🎉 STEP 8: OPTIONAL - CONTINUOUS MONITORING
+----------------------------------------------------------------------
+
+To keep the system running periodically (e.g., every 60 minutes):
+   > python scripts/run_pipeline.py --continuous 60
+
+💡 You can stop it anytime using:
+   Ctrl + C
+
+----------------------------------------------------------------------
+✅ STEP 9: COMPLETION CHECK
+----------------------------------------------------------------------
+
+If everything is working, you’ll see console output like this:
+
+======================================================================
+DRIFT-AWARE RETRAINING PIPELINE
+======================================================================
+✓ DriftMonitor initialized
+🔍 Checking Embedding Drift...
+✓ No drift. Score: 0.05 <= 0.15
+⚠️ BEHAVIOR DRIFT DETECTED! High toxicity (2.68%)
+✅ PIPELINE COMPLETED SUCCESSFULLY
+Drifts detected: behavior
+Actions taken: update_system_prompt
+======================================================================
+
+----------------------------------------------------------------------
+💡 OPTIONAL: GIT COMMANDS (IF USING GITHUB)
+----------------------------------------------------------------------
+
+To push your project safely to GitHub:
+
+> git init
+> git add .
+> git commit -m "Initial commit: Drift Aware AI Retraining Pipeline"
+> git branch -M main
+> git remote add origin https://github.com/<your-username>/<repo-name>.git
+> git push -u origin main
+
+Make sure your `.gitignore` file excludes:
+   .env
+   logs/
+   data/
+   __pycache__/
+   .vscode/
+
+----------------------------------------------------------------------
+📧 AUTHOR INFORMATION
+----------------------------------------------------------------------
+
+Developed by: Rudra Pratap Tomer
+Email: rudratomer.te@gmail.com
+Description: Automated Drift Detection & AI Retraining Pipeline
+Version: 1.0.0
+
+======================================================================
+✨ AI models may drift, but this pipeline never sleeps.
+======================================================================
