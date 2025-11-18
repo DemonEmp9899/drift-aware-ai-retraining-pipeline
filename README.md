@@ -214,7 +214,7 @@ Make sure your `.gitignore` file excludes:
 ----------------------------------------------------------------------
 
 Developed by: Rudra Pratap Tomer
-Email: rudratomer.te@gmail.com
+Email: rudratomer3@gmail.com
 Description: Automated Drift Detection & AI Retraining Pipeline
 Version: 1.0.0
 
